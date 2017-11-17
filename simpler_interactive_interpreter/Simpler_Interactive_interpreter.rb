@@ -9,10 +9,39 @@ class Interpreter
   def input expr
     # your code here - feel free to use and/or modify the provided tokenizer
     @tokens = tokenize(expr).map{|a|a[0]}
-    0
+    p @tokens.map!{|x| convert_integer(x)}
+    if @tokens.include?("=")
+      values = @tokens.reject{|x| x == "="}
+      store_variable(values)
+    else
+      operator = @tokens.reject{|x| x.is_a?(Integer)}.reduce
+      numbers = @tokens.select{|x| x.is_a?(Integer)}
+      p operator
+      operate(operator, numbers)
+    end
   end
 
   private
+
+  def store_variable(values)
+    p @tokens
+    @vars[values[0]] = values[1]
+    values[1]
+  end
+
+  def operate(operator, values)
+      values.reduce(operator)
+  end
+
+  def convert_integer(n)
+    if n != '0' && n.to_i != 0
+      return n.to_i
+    elsif n == '0'
+      0
+    else
+      n
+    end
+  end
 
   def tokenize program
     return [] if program == ''
