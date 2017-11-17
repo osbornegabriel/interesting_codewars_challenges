@@ -10,9 +10,13 @@ class Interpreter
     # your code here - feel free to use and/or modify the provided tokenizer
     @tokens = tokenize(expr).map{|a|a[0]}
     p @tokens.map!{|x| convert_integer(x)}
+    @tokens.map!{|x| @vars.keys.include?(x) ? @vars[x] : x}
+    raise 'Invalid identifier' if @tokens[0].is_a?(String) && @tokens[1] != "="
     if @tokens.include?("=")
       values = @tokens.reject{|x| x == "="}
       store_variable(values)
+    elsif @tokens.size == 1
+      @tokens[0]
     else
       operator = @tokens.reject{|x| x.is_a?(Integer)}.reduce
       numbers = @tokens.select{|x| x.is_a?(Integer)}
