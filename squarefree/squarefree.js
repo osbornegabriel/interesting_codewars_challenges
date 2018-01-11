@@ -11,3 +11,7 @@
 // squareFreePart(24) // returns 6, since any larger divisor is divisible by 4, which is a square
 // squareFreePart("hi") // returns null
 // squareFreePart(0) // returns null
+
+noSquareFactor = function(n){
+  return !Number.isInteger(Math.sqrt(n));
+}
