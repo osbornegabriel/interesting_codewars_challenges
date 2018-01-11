@@ -12,6 +12,33 @@
 // squareFreePart("hi") // returns null
 // squareFreePart(0) // returns null
 
+var findMultiples;
+var noSquareFactor;
+var squareFreePart;
+
+squareFreePart = function(n) {
+  if(n === 1){
+    return 1;
+  }
+  else{
+    multiples = findMultiples(n);
+    squareFree = multiples.filter(noSquareFactor);
+    return squareFree.pop();
+  }
+}
+
+findMultiples = function(n){
+  var i;
+  var multiples = [];
+  for(i = 0; i < n/2; i += 1){
+    if(Number.isInteger(n/i)){
+      multiples.push(i)
+    }
+  }
+  multiples.push(n);
+  return multiples;
+}
+
 noSquareFactor = function(n){
   return !Number.isInteger(Math.sqrt(n));
 }
