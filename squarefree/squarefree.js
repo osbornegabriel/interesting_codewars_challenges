@@ -33,10 +33,7 @@ squareFreePart = function(n) {
   }
   else{
     multiples = findMultiples(n);
-
-    // squareFree = multiples.filter(noSquareFactor);
-    // squareFree.filter()
-    return squareFree.pop();
+    return multiples.filter(noMultSquareFactors);
   }
 }
 
@@ -56,7 +53,11 @@ noSquareFactor = function(n){
   return n == 1 ? true : !Number.isInteger(Math.sqrt(n));
 }
 
+hasSquareFactor = function(n){
+  return n !== 1 && Number.isInteger(Math.sqrt(n));
+}
+
 noMultSquareFactors = function(n){
   multiples = findMultiples(n)
-  multiples.some(noSquareFactor);
+  return !multiples.some(noSquareFactor);
 }
