@@ -16,13 +16,26 @@ var findMultiples;
 var noSquareFactor;
 var squareFreePart;
 
+Array.prototype.some = function(f){
+  var includes;
+  this.forEach(function(i){
+    if (f(i) === true){
+      includes = true;
+    }
+  })
+  return !!includes;
+}
+
+
 squareFreePart = function(n) {
   if(n === 1){
     return 1;
   }
   else{
     multiples = findMultiples(n);
-    squareFree = multiples.filter(noSquareFactor);
+
+    // squareFree = multiples.filter(noSquareFactor);
+    // squareFree.filter()
     return squareFree.pop();
   }
 }
@@ -30,7 +43,7 @@ squareFreePart = function(n) {
 findMultiples = function(n){
   var i;
   var multiples = [];
-  for(i = 0; i < n/2; i += 1){
+  for(i = 0; i <= n/2; i += 1){
     if(Number.isInteger(n/i)){
       multiples.push(i)
     }
@@ -40,5 +53,10 @@ findMultiples = function(n){
 }
 
 noSquareFactor = function(n){
-  return !Number.isInteger(Math.sqrt(n));
+  return n == 1 ? true : !Number.isInteger(Math.sqrt(n));
+}
+
+noMultSquareFactors = function(n){
+  multiples = findMultiples(n)
+  multiples.some(noSquareFactor);
 }
